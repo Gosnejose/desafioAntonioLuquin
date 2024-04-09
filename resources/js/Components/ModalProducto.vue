@@ -6,7 +6,8 @@
         producto: { type: Object, default: () => ({}) },
         modal: String,
         title: String,
-        op: String
+        op: String,
+        isEditable: Boolean
     });
 
     const form = useForm({
@@ -64,12 +65,12 @@
                         <!-- Input para el precio -->
                         <div class="mb-3">
                             <label for="'precio'+op" class="form-label">Precio</label>
-                            <TextInput :id="'precio'+op" class="form-control" type="number" name="precio" v-model="form.precio" min="0" placeholder="Precio" required></TextInput>
+                            <TextInput :readonly="!isEditable" :id="'precio'+op" class="form-control" type="number" name="precio" v-model="form.precio" min="0" placeholder="Precio" required></TextInput>
                         </div>
                         <!-- Input para el stock -->
                         <div class="mb-3">
                             <label for="'stock'+op" class="form-label">Stock</label>
-                            <TextInput :id="'stock'+op" class="form-control" type="number" name="stock" v-model="form.stock" min="0" placeholder="Stock" required></TextInput>
+                            <TextInput :readonly="!isEditable" :id="'stock'+op" class="form-control" type="number" name="stock" v-model="form.stock" min="0" placeholder="Stock" required></TextInput>
                         </div>
                         <div class="d-grid mx-auto">
                             <button class="btn btn-success" :disabled="form.processing"><i class="fa-solid fa-save"></i> Guardar</button>

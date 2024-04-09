@@ -1,102 +1,99 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
-import ModalProducto from '@/Components/ModalUsuario.vue';
+import ModalUsuario from '@/Components/ModalUsuario.vue';
 import Swal from 'sweetalert2';
 import { Head } from '@inertiajs/vue3';
 import { useForm } from '@inertiajs/vue3';
 
 const form = useForm({});
 const props = defineProps({
-    productos: { type: Object }
+  usuarios: { type: Object },
+  roles: { type: Object },
+
 });
 
 const eliminar = (id, name) => {
-    const swalWithBootstrapButtons = Swal.mixin({
-        buttonsStyling: true
-    })
-    swalWithBootstrapButtons.fire({
-        title: '¿Seguro de eliminar el producto ' + name + '?',
-        text: 'Esta acción no se puede deshacer',
-        icon: 'question',
-        showCancelButton: true,
-        confirmButtonText: '<i class="fa-solid fa-check"></i> Si, eliminar',
-        cancelButtonText: '<i class="fa-solid fa-ban"></i> Cancelar'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            form.delete(route('producto.destroy', id));
-        }
-    })
+  const swalWithBootstrapButtons = Swal.mixin({
+    buttonsStyling: true
+  })
+  swalWithBootstrapButtons.fire({
+    title: '¿Seguro de eliminar al usuario ' + name + '?',
+    text: 'Esta acción no se puede deshacer',
+    icon: 'question',
+    showCancelButton: true,
+    confirmButtonText: '<i class="fa-solid fa-check"></i> Si, eliminar',
+    cancelButtonText: '<i class="fa-solid fa-ban"></i> Cancelar'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      form.delete(route('usuario.destroy', id));
+    }
+  })
 };
 
-const openModal = (producto) => {
-    // Asigna los valores del producto a los campos del formulario dentro del modal
-    document.getElementById('id3').value = producto.id;
-    document.getElementById('nombre3').value = producto.nombre;
-    document.getElementById('descripcion3').value = producto.descripcion;
-    document.getElementById('precio3').value = producto.precio;
-    document.getElementById('stock3').value = producto.stock;
+const openModal = (usuario) => {
+   document.getElementById('id2').value = usuario.id;
+    document.getElementById('name2').value = usuario.name;
+    document.getElementById('email2').value = usuario.email;
+    document.getElementById('role2').value = usuario.role.id ?? null;
 }
 </script>
 
 <template>
-    <AppLayout title="Productos">
-        <!-- Contenido principal -->
-        <div class="container-fluid mt-3 bg-white">
-            <div class="row mt-3">
-                <div class="col-md-4 offset-md-4">
-                    <div class="d-grid mx-auto">
-                        <button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#modalCreate">
-                            <i class="fa-solid fa-circle-plus"></i> Añadir Producto
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="row mt-3">
-                <div class="col-md-10 offset-md-1">
-                    <div class="table-responsive">
-                        <table class="table table-striped table-bordered">
-                            <thead class="table-dark">
-                                <tr>
-                                    <th>#</th>
-                                    <th>NOMBRE</th>
-                                    <th>DESCRIPCION</th>
-                                    <th>PRECIO</th>
-                                    <th>STOCK</th>
-                                    <th>ACCIONES</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="(producto, index) in productos" :key="producto.id">
-                                    <td>{{ index + 1 }}</td>
-                                    <td>{{ producto.nombre }}</td>
-                                    <td>{{ producto.descripcion }}</td>
-                                    <td>{{ producto.precio }}</td>
-                                    <td>{{ producto.stock }}</td>
-                                    <td>
-                                        <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalEdit" @click="openModal(producto)">
-                                            <i class="fa-solid fa-edit"></i> Editar
-                                        </button>
-                                        <button class="btn btn-danger" @click="eliminar(producto.id, producto.nombre)">
-                                            <i class="fa-solid fa-trash"></i> Eliminar
-                                        </button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+  <AppLayout title="Usuarios">
+    <!-- Contenido principal -->
+    <div class="container-fluid mt-3 bg-white">
+      <div class="row mt-3">
+        <div class="col-md-4 offset-md-4">
+          <div class="d-grid mx-auto">
+            <button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#modalCreate">
+              <i class="fa-solid fa-circle-plus"></i> Añadir Usuario
+            </button>
+          </div>
         </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-md-10 offset-md-1">
+          <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+              <thead class="table-dark">
+                <tr>
+                  <th>#</th>
+                  <th>Nombre</th>
+                  <th>Email</th>
+                  <th>Rol</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="(user, index) in usuarios" :key="user.id">
+                  <td>{{ index + 1 }}</td>
+                  <td>{{ user.name }}</td>
+                  <td>{{ user.email }}</td>
+                  <td>{{ user.role.name }}</td>
+                  <td>
+                    <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalEdit" @click="openModal(user)">
+                      <i class="fa-solid fa-edit"></i> Editar
+                    </button>
+                    <button class="btn btn-danger" @click="eliminar(user.id, user.name)">
+                      <i class="fa-solid fa-trash"></i> Eliminar
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
 
-        <!-- Modales -->
-        <ModalProducto :modal="'modalCreate'" :title="'Añadir Producto'" :op="'1'"></ModalProducto> 
-        <ModalProducto :modal="'modalEdit'" :title="'Editar Producto'" :op="'2'"></ModalProducto>
-    </AppLayout>
+    <!-- Modales -->
+    <ModalUsuario :modal="'modalCreate'" :title="'Añadir Usuario'" :op="'1'" :roles="roles"></ModalUsuario> 
+    <ModalUsuario :modal="'modalEdit'" :title="'Editar Usuario'" :op="'2'" :roles="roles"></ModalUsuario>
+    
+  </AppLayout>
 </template>
 
 <style scoped>
-/* Aquí puedes agregar estilos personalizados para mejorar el diseño */
-
 .table-responsive {
     overflow-x: auto;
 }

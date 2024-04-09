@@ -7,7 +7,8 @@ import { useForm } from '@inertiajs/vue3';
 
 const form = useForm({});
 const props = defineProps({
-    productos: { type: Object }
+    productos: { type: Object },
+    role: { type: String }
 });
 
 const eliminar = (id, name) => {
@@ -36,6 +37,10 @@ const openModal = (producto) => {
     document.getElementById('precio2').value = producto.precio;
     document.getElementById('stock2').value = producto.stock;
 }
+
+const userCanEdit = () => {
+    return props.role === 'admin';
+};
 </script>
 
 <template>
@@ -72,13 +77,15 @@ const openModal = (producto) => {
                                     <td>{{ producto.descripcion }}</td>
                                     <td>{{ producto.precio }}</td>
                                     <td>{{ producto.stock }}</td>
-                                    <td>
+                                    <td v-if="(userCanEdit())">
                                         <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalEdit" @click="openModal(producto)">
                                             <i class="fa-solid fa-edit"></i> Editar
                                         </button>
                                         <button class="btn btn-danger" @click="eliminar(producto.id, producto.nombre)">
                                             <i class="fa-solid fa-trash"></i> Eliminar
                                         </button>
+                                    </td>
+                                    <td v-else>
                                     </td>
                                 </tr>
                             </tbody>
@@ -89,8 +96,8 @@ const openModal = (producto) => {
         </div>
 
         <!-- Modales -->
-        <ModalProducto :modal="'modalCreate'" :title="'Añadir Producto'" :op="'1'"></ModalProducto> 
-        <ModalProducto :modal="'modalEdit'" :title="'Editar Producto'" :op="'2'"></ModalProducto>
+        <ModalProducto :modal="'modalCreate'" :title="'Añadir Producto'" :op="'1'" :isEditable="userCanEdit()"></ModalProducto> 
+        <ModalProducto :modal="'modalEdit'" :title="'Editar Producto'" :op="'2'" :isEditable="userCanEdit()"></ModalProducto>
     </AppLayout>
 </template>
 

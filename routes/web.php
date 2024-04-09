@@ -45,7 +45,7 @@ Route::middleware([
     //Usuario
     Route::get('/usuario', [UsuarioController::class, 'index'])->name('usuario.index');
     Route::post('/usuario', [UsuarioController::class, 'store'])->name('usuario.store');
-    Route::get('/usuario/{usuario}', [UsuarioController::class, 'show'])->name('usuario.show');
+    Route::get('/usuario/{id}', [UsuarioController::class, 'show'])->name('usuario.show');
     Route::put('/usuario/{usuario}', [UsuarioController::class, 'update'])->name('usuario.update');
     Route::delete('/usuario/{usuario}', [UsuarioController::class, 'destroy'])->name('usuario.destroy');
 });
