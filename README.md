@@ -51,8 +51,7 @@ Sigue estos pasos para configurar el proyecto en tu entorno local:
 1. Clona este repositorio en tu máquina local:
 
 ```bash
-git clone https://github.com/tu-usuario/desafio1.git
-
+https://github.com/Gosnejose/desafioAntonioLuquin.git
 ```
 Accede al directorio del proyecto:
 ```bash
