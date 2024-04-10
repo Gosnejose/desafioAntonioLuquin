@@ -29,37 +29,96 @@ You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you
 
 If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-## Laravel Sponsors
+# Proyecto Desafío 1
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+Este es un proyecto Laravel 10 que utiliza Inertia.js como stack de presentación y Vue.js para la construcción de interfaces de usuario.
 
-### Premium Partners
+## Requisitos previos
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+Antes de comenzar, asegúrate de tener instalado lo siguiente en tu sistema:
 
-## Contributing
+- PHP (versión >= 8.0)
+- Composer
+- Node.js (versión >= 14)
+- NPM o Yarn
+- Laravel 10
+- Vue.js 3
+- Inertia.js
+## Instalación
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Sigue estos pasos para configurar el proyecto en tu entorno local:
 
-## Code of Conduct
+1. Clona este repositorio en tu máquina local:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```bash
+git clone https://github.com/tu-usuario/desafio1.git
 
-## Security Vulnerabilities
+```
+Accede al directorio del proyecto:
+```bash
+cd desafio1
+```
+Instala las dependencias de PHP utilizando Composer:
+```bash
+composer install
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```
+Instala las dependencias de Node.js utilizando NPM o Yarn:
+```bash
+npm install
+# O
+yarn install
+
+```
+Crea un archivo de configuración .env basado en .env.example:
+```bash
+cp .env.example .env
+
+```
+Ejecuta las migraciones de la base de datos para crear las tablas:
+
+```bash
+php artisan migrate
+
+```
+Si deseas, puedes ejecutar los seeders para llenar la base de datos con datos de prueba:
+```bash
+php artisan db:seed
+
+```
+Compila los recursos de frontend (JavaScript, CSS, etc.):
+```bash
+npm run dev
+# O
+yarn dev
+
+```
+Inicia el servidor de desarrollo:
+```bash
+php artisan serve
+
+```
+
+Uso
+Una vez que el servidor esté en funcionamiento, puedes acceder a tu aplicación en http://localhost:8000. ¡Disfruta de tu aplicación Laravel 10 con Inertia y Vue!
+
+Contribuir
+Si deseas contribuir a este proyecto, por favor abre un issue o una solicitud de extracción y estaremos encantados de revisarlo.
+
+ ### Tablas
+
+## Tabla Producto
+- ID
+- Nombre
+- Descripcion
+- Precio
+- Stock
+
+## Tabla Usuario
+- Id
+- Nombre
+- Email
+- Pasword
 
 ## License
 
