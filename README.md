@@ -41,7 +41,7 @@ Antes de comenzar, asegúrate de tener instalado lo siguiente en tu sistema:
 - Composer
 - Node.js (versión >= 14)
 - NPM o Yarn
-- Laravel 10
+- Laravel 9
 - Vue.js 3
 - Inertia.js
 ## Instalación
