@@ -1,11 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\Producto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Session;
 
 class ProductoController extends Controller
 {
@@ -16,7 +16,7 @@ class ProductoController extends Controller
      */
     public function index()
     {
-        $productos = Producto::all();
+        $productos = Producto::all(); 
        return Inertia::render('ProductsIndex', ['productos' => $productos, 'role'=> Auth::user()->role->name]);
 
     }
@@ -39,7 +39,6 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
 {
-
     $request-> validate([
         'nombre' => 'required',
         'descripcion' => 'required',
@@ -102,7 +101,14 @@ class ProductoController extends Controller
     public function destroy($id)
     {
         $producto = Producto::find($id);
-        $producto->delete();
-        return redirect()->route('producto.index');
+    if (!$producto) {
+        abort(404, 'El producto no existe');
+    }
+
+    $producto->delete();
+
+    Session::flash('message', 'Producto eliminado exitosamente');
+
+    return redirect()->route('producto.index');
     }
 }

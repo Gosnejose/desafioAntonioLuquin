@@ -7,7 +7,8 @@
         modal: String,
         title: String,
         op: String,
-        isEditable: Boolean
+        isEditable: Boolean,
+        mostrarMensaje: Function
     });
 
     const form = useForm({
@@ -15,7 +16,10 @@
         nombre: props.producto.nombre,
         descripcion: props.producto.descripcion,
         precio: props.producto.precio,
-        stock: props.producto.stock
+        stock: props.producto.stock,
+        observacion: props.producto.observacion,
+
+        
     });
 
     const save = () => {
@@ -32,6 +36,7 @@
     }
 
     const cerrar = () => {
+        props.mostrarMensaje("Usuario editado");
         form.reset();
         document.querySelector('#cerrar' + props.op).click();
     };
@@ -47,7 +52,6 @@
                 </div>
                 <div class="modal-body">
                     <form @submit.prevent="(op === '1' ? save() : update())">
-                        <!-- Input para el ID -->
                         <div class="mb-3">
                             <label for="'id'+op" class="form-label">ID</label>
                             <TextInput :id="'id'+op" type="hidden" name="id" v-model="form.id"></TextInput>
@@ -71,6 +75,10 @@
                         <div class="mb-3">
                             <label for="'stock'+op" class="form-label">Stock</label>
                             <TextInput :readonly="!isEditable" :id="'stock'+op" class="form-control" type="number" name="stock" v-model="form.stock" min="0" placeholder="Stock" required></TextInput>
+                        </div>
+                             <div class="mb-3">
+                            <label for="'observacion'+op" class="form-label">OBSERVACION</label>
+                            <TextInput :readonly="!isEditable" :id="'observacion'+op" class="form-control" type="text" name="observacion" v-model="form.observacion" min="0" placeholder="observacion" required></TextInput>
                         </div>
                         <div class="d-grid mx-auto">
                             <button class="btn btn-success" :disabled="form.processing"><i class="fa-solid fa-save"></i> Guardar</button>

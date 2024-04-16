@@ -5,11 +5,24 @@ import Swal from 'sweetalert2';
 import { Head } from '@inertiajs/vue3';
 import { useForm } from '@inertiajs/vue3';
 
+
+const showMessage = (message) => {
+        Swal.fire({
+            icon: 'success',
+            text: message,
+            showConfirmButton: false,
+            timer: 2000
+        });
+    
+};
+
+
 const form = useForm({});
 const props = defineProps({
     productos: { type: Object },
     role: { type: String }
 });
+
 
 const eliminar = (id, name) => {
     const swalWithBootstrapButtons = Swal.mixin({
@@ -24,7 +37,9 @@ const eliminar = (id, name) => {
         cancelButtonText: '<i class="fa-solid fa-ban"></i> Cancelar'
     }).then((result) => {
         if (result.isConfirmed) {
-            form.delete(route('producto.destroy', id));
+            form.delete(route('producto.destroy', id),{
+            onSuccess: () => showMessage("Producto Eliminado")
+        });
         }
     })
 };
@@ -67,6 +82,7 @@ const userCanEdit = () => {
                                     <th>DESCRIPCION</th>
                                     <th>PRECIO</th>
                                     <th>STOCK</th>
+                                    <th>OBSERVACION</th>
                                     <th>ACCIONES</th>
                                 </tr>
                             </thead>
@@ -77,6 +93,7 @@ const userCanEdit = () => {
                                     <td>{{ producto.descripcion }}</td>
                                     <td>{{ producto.precio }}</td>
                                     <td>{{ producto.stock }}</td>
+                                    <td>{{ producto.observacion }}</td>
                                     <td v-if="(userCanEdit())">
                                         <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalEdit" @click="openModal(producto)">
                                             <i class="fa-solid fa-edit"></i> Editar
@@ -96,8 +113,8 @@ const userCanEdit = () => {
         </div>
 
         <!-- Modales -->
-        <ModalProducto :modal="'modalCreate'" :title="'Añadir Producto'" :op="'1'" :isEditable="userCanEdit()"></ModalProducto> 
-        <ModalProducto :modal="'modalEdit'" :title="'Editar Producto'" :op="'2'" :isEditable="userCanEdit()"></ModalProducto>
+        <ModalProducto :modal="'modalCreate'" :title="'Añadir Producto'" :op="'1'" :isEditable="userCanEdit()" :mostrarMensaje = "showMessage"></ModalProducto> 
+        <ModalProducto :modal="'modalEdit'" :title="'Editar Producto'" :op="'2'" :isEditable="userCanEdit()" :mostrarMensaje = "showMessage"></ModalProducto>
     </AppLayout>
 </template>
 
